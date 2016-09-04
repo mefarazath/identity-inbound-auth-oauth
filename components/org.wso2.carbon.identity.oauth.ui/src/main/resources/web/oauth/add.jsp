@@ -108,7 +108,10 @@
                             document.getElementsByName("callback")[0].value = '';
                         }
                     } else {
-                        if (!isWhiteListed(callbackUrl, ["url"]) || !isNotBlackListed(callbackUrl,
+                        // This is to support providing regex patterns for callback URLs
+                        if (callbackUrl.startsWith("regexp=")) {
+                            // skip validation
+                        } else if (!isWhiteListed(callbackUrl, ["url"]) || !isNotBlackListed(callbackUrl,
                                         ["uri-unsafe-exists"])) {
                             CARBON.showWarningDialog('<fmt:message key="callback.is.not.url"/>');
                             return false;
